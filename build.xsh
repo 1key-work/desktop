@@ -25,7 +25,7 @@ def build(ico):
   if not exists(join(MAIN, "node_modules")):
     yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
-  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app --asar --extra-resource='index.html' --extra-resource='m.js' --extra-resource='s.js'
+  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app # --extra-resource='index.html' --extra-resource='m.js' --extra-resource='s.js' --asar
   cd @(DIR)/app
 
 def darwin():

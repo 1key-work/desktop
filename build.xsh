@@ -23,6 +23,7 @@ def build(ico):
   if not exists(join(MAIN, "node_modules")):
     cd @(MAIN)
     yarn
+  cd @(DIR)
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
   npx --yes electron-packager ./main --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
 

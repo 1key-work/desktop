@@ -5,9 +5,9 @@ $RAISE_SUBPROC_ERROR = True
 from pathlib import Path
 import sys
 from os.path import dirname,abspath,exists,join
-$DIR = DIR = dirname(abspath(__file__))
+DIR = dirname(abspath(__file__))
 sys.path.insert(0, DIR)
-cd $DIR
+cd @(DIR)
 trace on
 
 from platform_simple import platform
@@ -25,8 +25,8 @@ def build(ico):
   if not exists(join(MAIN, "node_modules")):
     yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
-  npx --yes electron-packager . --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
-  cd $DIR/app
+  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app --asar
+  cd @(DIR)/app
 
 def darwin():
   build("icns")

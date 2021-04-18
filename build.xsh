@@ -25,7 +25,8 @@ def build(ico):
   if not exists(join(MAIN, "node_modules")):
     yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
-  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app --asar
+  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app
+  # --asar
   # --extra-resource='index.html' --extra-resource='m.js' --extra-resource='s.js'
   cd @(DIR)/app
 
@@ -62,7 +63,7 @@ def darwin():
     dump(config, out)
   dmg = "app.dmg"
   rm -rf @(dmg)
-  npx --yes appdmg @(fp) @(dmg)
+# npx --yes appdmg @(fp) @(dmg)
 
 def win():
   build("ico")
@@ -71,5 +72,8 @@ def win():
   import py7zr
   with py7zr.SevenZipFile("app.7z", 'w') as z:
     z.writeall('./'+NAME)
+
+def linux():
+  build("png")
 
 locals()[platform]()

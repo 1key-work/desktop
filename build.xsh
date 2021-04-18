@@ -15,10 +15,14 @@ from json import load,dump
 
 MAIN = join(DIR, "main")
 
+
 with open(join(MAIN,"package.json")) as f:
   NAME = load(f)['productName']
 
 def build(ico):
+  if not exists(join(MAIN, "node_modules")):
+    cd @(MAIN)
+    yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
   npx --yes electron-packager ./main --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
 

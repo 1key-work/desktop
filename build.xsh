@@ -66,7 +66,9 @@ def darwin():
 def win():
   build("ico")
   Path(f"{NAME}-win32-x64").rename(NAME)
-  7z a -ms=on -m0=lzma -mx=9 -mfb=273 @(NAME).7z @(NAME)
+  pip3 install py7zr
+  with py7zr.SevenZipFile(f"{NAME}.7z", 'w') as z:
+    z.writeall('./'+NAME)
 
 print(platform)
 locals()[platform]()

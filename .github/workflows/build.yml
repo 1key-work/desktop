@@ -26,11 +26,6 @@ jobs:
       - name: pip3 install
         run: |
           pip3 install -r requirements.txt
-     
-      - name: Install 7Zip PowerShell Module
-        if: matrix.platform == 'windows-latest'
-        shell: powershell
-        run: Install-Module 7Zip4PowerShell -Force -Verbose
 
       - name: build
         run: xonsh build.xsh

@@ -2,6 +2,15 @@
 
 $RAISE_SUBPROC_ERROR = True
 
+
+
+from sys import platform
+
+if platform.startswith("linux"):
+  platform = platform[:5]
+elif platform.startswith("win"):
+  platform = platform[:3]
+
 from shutil import which
 from os.path import dirname,abspath,exists,join
 from json import load,dump
@@ -27,7 +36,7 @@ def darwin():
 
   config = {
     "title": NAME,
-    "format": "ULFO",
+    "format": "UDBZ",
     "icon": f"{DIR}/app.icns",
     "contents": [{
       "x": 448,
@@ -55,4 +64,6 @@ def darwin():
   dmg = NAME+".dmg"
   rm -rf @(dmg)
   npx --yes appdmg @(fp) @(dmg)
-darwin()
+
+print(platform)
+locals()[platform]()

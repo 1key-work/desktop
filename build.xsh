@@ -17,7 +17,7 @@ from json import load,dump
 MAIN = join(DIR, "main")
 
 
-with open(join(MAIN,"package.json")) as f:
+with open(join(MAIN,"package.json"),encoding="utf-8") as f:
   NAME = load(f)['productName']
 
 def build(ico):

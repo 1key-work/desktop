@@ -63,7 +63,7 @@ def darwin():
     dump(config, out)
   dmg = "app.dmg"
   rm -rf @(dmg)
-# npx --yes appdmg @(fp) @(dmg)
+  npx --yes appdmg @(fp) @(dmg)
 
 def win():
   build("ico")

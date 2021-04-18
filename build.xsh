@@ -72,4 +72,7 @@ def win():
   with py7zr.SevenZipFile("app.7z", 'w') as z:
     z.writeall('./'+NAME)
 
+def linux():
+  build("png")
+
 locals()[platform]()

@@ -2,25 +2,18 @@
 
 $RAISE_SUBPROC_ERROR = True
 
-
-
-from sys import platform
-
-if platform.startswith("linux"):
-  platform = platform[:5]
-elif platform.startswith("win"):
-  platform = platform[:3]
-
-from shutil import which
+import sys
 from os.path import dirname,abspath,exists,join
-from json import load,dump
-
+$DIR = DIR = dirname(abspath(__file__))
+sys.path.insert(0, DIR)
+cd $DIR
 trace on
 
-$DIR = DIR = dirname(abspath(__file__))
-MAIN = join(DIR, "main")
+from platform_simple import platform
+from shutil import which
+from json import load,dump
 
-cd $DIR
+MAIN = join(DIR, "main")
 
 with open(join(MAIN,"package.json")) as f:
   NAME = load(f)['productName']

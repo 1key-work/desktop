@@ -1,0 +1,39 @@
+name: build
+on: [push]
+
+jobs:
+  build:
+    name: build
+    strategy:
+      matrix:
+        platform: [macos-latest]
+        python-version: [3.9]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      
+      - name: pip3 install
+        run: |
+          pip3 install -r requirements.txt
+      
+      - name: build
+        run: xonsh build.xsh
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.16.3' 
+
+      - name: release
+        if: github.ref == 'refs/heads/release'
+        run: >
+          export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} &&
+          export PATH=$(go env GOPATH)/bin:$PATH &&
+          ./release.xsh 
+

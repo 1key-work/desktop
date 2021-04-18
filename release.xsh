@@ -2,15 +2,18 @@
 
 $RAISE_SUBPROC_ERROR = True
 
-from os.path import dirname,abspath,exists
-DIR = dirname(dirname(abspath(__file__)))
+import sys
+from os.path import dirname,abspath,exists,join
+$DIR = DIR = dirname(abspath(__file__))
+sys.path.insert(0, DIR)
 cd @(DIR)
+trace on
 
 import traceback
 from shutil import which
 from json import load
 
-def main(ext_li, platform):
+def main(ext_li, platform=None):
   github_release = "github-release"
 
   if not which(github_release):
@@ -54,4 +57,9 @@ def main(ext_li, platform):
       print(r.errors)
   $RAISE_SUBPROC_ERROR = True
 
-main($ARG1, $ARG2)
+from platform_simple import platform
+
+PLATFORM = dict(
+  darwin=["dmg"],
+)
+main(*PLATFORM[platform])

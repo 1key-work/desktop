@@ -64,7 +64,8 @@ def darwin():
 
 def win():
   build("ico")
-  7z a -ms=on -m0=lzma -mx=9 -mfb=273 @(NAME).7z f"./dist/{NAME}-win32-x64/*"
+  mv @(f"{NAME}-win32-x64/*") @(NAME)
+  7z a -ms=on -m0=lzma -mx=9 -mfb=273 @(NAME).7z @(NAME)
 
 
 print(platform)

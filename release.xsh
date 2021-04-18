@@ -60,7 +60,7 @@ def main(ext_li, platform=None):
 from platform_simple import platform
 
 PLATFORM = dict(
-  darwin=["dmg"],
+  darwin=["dmg", "mac"],
   win=["7z","win64"],
 )
 main(*PLATFORM[platform])

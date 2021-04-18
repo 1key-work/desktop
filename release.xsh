@@ -48,11 +48,11 @@ def main(ext_li, platform=None):
   else:
     sleep 3
   for ext in ext_li.split(","):
-    name = f"{productName}.{version}.{ext}"
+    name = f"{version}.{ext}"
     if platform:
       name = platform+"-"+name
     print(f"upload {name}")
-    r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file app/@(productName).@(ext))
+    r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file app/app.@(ext))
     if r.rtn:
       print(r.errors)
   $RAISE_SUBPROC_ERROR = True

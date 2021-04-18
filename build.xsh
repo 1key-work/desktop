@@ -72,6 +72,13 @@ def win():
   import py7zr
   with py7zr.SevenZipFile("app.7z", 'w') as z:
     z.writeall('./'+NAME)
+  ChineseSimplified = 'C:\\Program Files (x86)\\Inno Setup 6\\Languages\\ChineseSimplified.isl'
+  if not exists(ChineseSimplified):
+    import urllib.request
+    response = urllib.request.urlopen('https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl')
+    with open(ChineseSimplified,"wb") as f:
+      f.write(response.read())
+  "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" "..\inno.iss"
 
 def linux():
   build("png")

@@ -10,7 +10,7 @@ import traceback
 from shutil import which
 from json import load
 
-def main(platform, ext_li):
+def main(ext_li, platform):
   github_release = "github-release"
 
   if not which(github_release):
@@ -20,6 +20,7 @@ def main(platform, ext_li):
     o = load(f)
 
   email = o['email']
+  productName = o['productName']
   git config user.name @(o['author'])
   git config user.email @(email)
 
@@ -44,9 +45,11 @@ def main(platform, ext_li):
   else:
     sleep 3
   for ext in ext_li.split(","):
-    name = f"{platform}-{email.split('@',1).pop()}-{version}.{ext}"
+    name = f"{productName}.{version}.{ext}"
+    if platform:
+      name = platform+"-"+name
     print(f"upload {name}")
-    r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file dist/app.@(ext))
+    r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file app/@(productName).@(ext))
     if r.rtn:
       print(r.errors)
   $RAISE_SUBPROC_ERROR = True

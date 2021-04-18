@@ -141,10 +141,10 @@ duplexer3@^0.1.4:
   resolved "https://registry.npm.taobao.org/duplexer3/download/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"
   integrity sha1-7gHdHKwO08vH/b6jfcCo8c4ALOI=
 
-electron@^12.0.4:
-  version "12.0.4"
-  resolved "https://registry.npm.taobao.org/electron/download/electron-12.0.4.tgz?cache=0&sync_timestamp=1618388227548&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron%2Fdownload%2Felectron-12.0.4.tgz#c2ca4710d0e4da7db6d31c4f55777b08bfcb08e5"
-  integrity sha1-wspHENDk2n220xxPVXd7CL/LCOU=
+electron@^13.0.0-beta.14:
+  version "13.0.0-beta.14"
+  resolved "https://registry.npm.taobao.org/electron/download/electron-13.0.0-beta.14.tgz?cache=0&sync_timestamp=1618388227548&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felectron%2Fdownload%2Felectron-13.0.0-beta.14.tgz#684e74df74d728e3c6dc1e2c8f3148391e68fb22"
+  integrity sha1-aE5033TXKOPG3B4sjzFIOR5o+yI=
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"

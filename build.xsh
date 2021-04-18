@@ -2,6 +2,7 @@
 
 $RAISE_SUBPROC_ERROR = True
 
+from pathlib import Path
 import sys
 from os.path import dirname,abspath,exists,join
 $DIR = DIR = dirname(abspath(__file__))
@@ -64,9 +65,8 @@ def darwin():
 
 def win():
   build("ico")
-  mv @(f"{NAME}-win32-x64/*") @(NAME)
+  Path(f"{NAME}-win32-x64").rename(NAME)
   7z a -ms=on -m0=lzma -mx=9 -mfb=273 @(NAME).7z @(NAME)
-
 
 print(platform)
 locals()[platform]()

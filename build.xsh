@@ -78,7 +78,7 @@ def win():
     response = urllib.request.urlopen('https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl')
     with open(ChineseSimplified,"wb") as f:
       f.write(response.read())
-  "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" "..\inno.iss"
+  "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" ".\inno.iss"
 
 def linux():
   build("png")

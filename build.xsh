@@ -70,5 +70,4 @@ def win():
   with py7zr.SevenZipFile(NAME+".7z", 'w') as z:
     z.writeall('./'+NAME)
 
-print(platform)
 locals()[platform]()

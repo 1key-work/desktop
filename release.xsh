@@ -61,6 +61,6 @@ from platform_simple import platform
 
 PLATFORM = dict(
   darwin=["dmg", "mac"],
-  win=["7z,exe","win64"],
+  win=["exe,7z","win64"],
 )
 main(*PLATFORM[platform])

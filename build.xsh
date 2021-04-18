@@ -20,12 +20,11 @@ with open(join(MAIN,"package.json")) as f:
   NAME = load(f)['productName']
 
 def build(ico):
+  cd @(MAIN)
   if not exists(join(MAIN, "node_modules")):
-    cd @(MAIN)
     yarn
-  cd @(DIR)
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
-  npx --yes electron-packager ./main --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
+  npx --yes electron-packager . --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
 
 def darwin():
   build("icns")
@@ -34,7 +33,7 @@ def darwin():
 
   config = {
     "title": NAME,
-    "format": "UDBZ",
+    "format": "ULFO",
     "icon": f"{DIR}/app.icns",
     "contents": [{
       "x": 448,

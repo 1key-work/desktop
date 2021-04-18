@@ -1,0 +1,10 @@
+{
+  "name": "e2w.1key.work",
+  "productName": "一键办公 · 表格文档",
+  "version": "0.0.1",
+  "main": "main.js",
+  "description": "",
+  "dependencies": {
+    "electron": "^12.0.4"
+  }
+}

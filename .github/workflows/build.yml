@@ -38,6 +38,7 @@ jobs:
 
       - name: release
         if: github.ref == 'refs/heads/release'
+        shell: bash
         run: >
           export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} &&
           export PATH=$(go env GOPATH)/bin:$PATH &&

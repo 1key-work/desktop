@@ -69,7 +69,7 @@ def win():
   Path(NAME+"-win32-x64").rename(NAME)
   pip3 install py7zr
   import py7zr
-  with py7zr.SevenZipFile(NAME+".win64.7z", 'w') as z:
+  with py7zr.SevenZipFile(NAME+".7z", 'w') as z:
     z.writeall('./'+NAME)
 
 locals()[platform]()

@@ -25,10 +25,10 @@ def build(ico):
     yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
   npx --yes electron-packager . --overwrite --icon=$DIR/app.@(ico) --prune=true --out=$DIR/app --asar
+  cd $DIR/app
 
 def darwin():
   build("icns")
-  cd $DIR/app
   arch = "x64"
 
   config = {
@@ -61,6 +61,11 @@ def darwin():
   dmg = NAME+".dmg"
   rm -rf @(dmg)
   npx --yes appdmg @(fp) @(dmg)
+
+def win():
+  build("ico")
+  7z a -ms=on -m0=lzma -mx=9 -mfb=273 @(NAME).7z f"./dist/{NAME}-win32-x64/*"
+
 
 print(platform)
 locals()[platform]()

@@ -48,9 +48,7 @@ def main(ext_li, platform=None):
   else:
     sleep 3
   for ext in ext_li.split(","):
-    name = f"{version}.{ext}"
-    if platform:
-      name = platform+"-"+name
+    name = f"{productName}.{version}.{platform}.{ext}"
     print(f"upload {name}")
     r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file app/app.@(ext))
     if r.rtn:

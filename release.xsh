@@ -24,6 +24,7 @@ def main(ext_li, platform=None):
 
   email = o['email']
   productName = o['productName']
+  package_name = o['name']
   git config user.name @(o['author'])
   git config user.email @(email)
 
@@ -48,7 +49,7 @@ def main(ext_li, platform=None):
   else:
     sleep 3
   for ext in ext_li.split(","):
-    name = f"{productName}.{version}.{platform}.{ext}"
+    name = f"{package_name}.{version}.{platform}.{ext}"
     print(f"upload {name}")
     r = !(github-release upload --user @(user) --repo @(repo) --tag @(tag) --name @(name) --file app/app.@(ext))
     if r.rtn:

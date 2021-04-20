@@ -17,7 +17,7 @@ trace on
 
 from platform_simple import platform
 from shutil import which
-from json import loads,dump
+from json import loads,dumps
 
 MAIN = join(DIR, "main")
 
@@ -65,8 +65,7 @@ def darwin():
     }
   }
   fp = join(DIR,"app","mac.json")
-  with open(fp,"w") as out:
-    dump(config, out)
+  write(fp, dumps(config))
   dmg = "app.dmg"
   rm -rf @(dmg)
   npx --yes appdmg @(fp) @(dmg)
@@ -110,11 +109,20 @@ def main():
 
   m = read(join(DIR_TEMPLATE,"m.js"))
   if COM.TOKEN:
-    token = f"localStorage.C=\"{COM.TOKEN}\""
+    token = f"d.C=\"{COM.TOKEN}\""
   else:
-    token = f"delete localStorage.C"
-  write(join(MAIN, "m.js"), f"{token};{m}")
-  make()
+    token = f"delete d.C"
+
+  li = [token]
+  if COM.E2W:
+    li.append(
+      f"d.E2W||(d.E2W='{dumps(COM.E2W)}')"
+    )
+
+  m = "(()=>{var d=localStorage;"+';'.join(li)+"})();"+m
+
+  write(join(MAIN, "m.js"), m)
+#make()
 
 main()
 

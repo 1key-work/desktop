@@ -19,7 +19,7 @@ def main(ext_li, platform=None):
   if not which(github_release):
     go get github.com/github-release/@(github_release)
   
-  with open("main/package.json") as f:
+  with open("main/package.json",,encoding="utf-8") as f:
     o = load(f)
 
   email = o['email']

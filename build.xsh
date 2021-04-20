@@ -67,19 +67,21 @@ def darwin():
   npx --yes appdmg @(fp) @(dmg)
 
 def win():
+
+  from mako.template import Template
+  inno = "inno.iss"
+  with open(join(DIR,inno),encoding="utf-8") as f:
+    txt = Template(f.read()).render(**PACKAGE)
+    with open(join(DIR,"app",inno),"w",encoding="utf-8") as o:
+      o.write(txt)
+  return
   build("ico")
+
   Path(NAME+"-win32-x64").rename(NAME)
   pip3 install py7zr
   import py7zr
   with py7zr.SevenZipFile("app.7z", 'w') as z:
     z.writeall('./'+NAME)
-  from mako.template import Template
-
-  inno = "inno.iss"
-  with open(join(DIR,inno)) as f:
-    txt = Template(f.read()).render(**PACKAGE)
-    with open(join(DIR,"app",inno),"wb") as o:
-      o.write(txt.encode('utf8'))
 
   pdir = "C:\\Program Files (x86)\\Inno Setup 6\\"
   ChineseSimplified = pdir+'Languages\\ChineseSimplified.isl'
@@ -88,11 +90,12 @@ def win():
     response = urllib.request.urlopen('https://raw.githubusercontent.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl')
     with open(ChineseSimplified,"wb") as f:
       f.write(response.read())
-  @(pdir+"ISCC.exe") .\inno.iss
+  @(pdir+"ISCC.exe") .\@(inno)
 
 def linux():
   build("png")
 
-locals()[platform]()
+#locals()[platform]()
+win()
 
 

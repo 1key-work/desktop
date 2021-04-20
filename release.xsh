@@ -18,7 +18,7 @@ def main(ext_li, platform=None):
 
   if not which(github_release):
     go get github.com/github-release/@(github_release)
-
+  
   with open("main/package.json") as f:
     o = load(f)
 
@@ -30,7 +30,13 @@ def main(ext_li, platform=None):
 
   version = o['version']
   print(version)
-  repository = o['repository']
+
+  with open(".git/config") as f:
+    for line in f:
+      line = line.strip()
+      if line.startsWith("url = "):
+         repository = line.split("=",1).pop().lstrip()
+         break
   _, user, repo = repository.rsplit("/",2)
   repo = repo.rsplit(".")[0]
   print(user,repo)

@@ -105,7 +105,7 @@ def main():
   COM = CONFIG.COM
   if COM.NAME:
     fp = join(MAIN,"index.html")
-    title = NAME + " / " + COM.NAME + "定制版"
+    title = f"{NAME} · {COM.NAME}定制版"
     html = re.sub("(?<=<title>)(.*?)(?=</title>)", title , read(fp))
     write(fp, html)
   m = read(join(DIR_TEMPLATE,"m.js"))

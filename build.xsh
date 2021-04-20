@@ -105,6 +105,8 @@ def win():
 def linux():
   build("png")
 
+make = locals()[platform] 
+
 def main():
   from config import CONFIG
   COM = CONFIG.COM
@@ -113,7 +115,7 @@ def main():
   m = read(join(DIR_TEMPLATE,"m.js"))
   token = f"localStorage.C=\"{COM.TOKEN}\";"
   write(join(MAIN, "m.js"), token+m)
-  locals()[platform]()
+  make()
 
 main()
 

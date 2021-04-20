@@ -95,7 +95,6 @@ def win():
 def linux():
   build("png")
 
-#locals()[platform]()
-win()
+locals()[platform]()
 
 

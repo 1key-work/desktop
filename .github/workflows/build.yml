@@ -30,7 +30,8 @@ jobs:
 
       - name: build
         run: xonsh build.xsh
-
+        env:
+          PYTHONIOENCODING: utf8
       - uses: actions/setup-go@v2
         if: github.ref == 'refs/heads/release'
         with:
@@ -39,6 +40,8 @@ jobs:
       - name: release
         if: github.ref == 'refs/heads/release'
         shell: bash
+        env:
+          PYTHONIOENCODING: utf8
         run: >
           export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} &&
           export PATH=$(go env GOPATH)/bin:$PATH &&

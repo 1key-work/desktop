@@ -1,6 +1,4 @@
 class COM:
-  E2W = dict(
-      c2="A"
-      )
+  E2W = dict()
   TOKEN = ""
   NAME = ""

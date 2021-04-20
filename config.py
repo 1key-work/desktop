@@ -1,4 +1,3 @@
-class CONFIG:
-  class COM:
-    TOKEN = ""
-    NAME = ""
+class COM:
+  TOKEN = ""
+  NAME = ""

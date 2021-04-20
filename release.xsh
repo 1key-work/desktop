@@ -13,6 +13,7 @@ trace on
 import traceback
 from shutil import which
 from json import loads
+from config import COM
 
 def main(ext_li, platform=None):
   github_release = "github-release"
@@ -44,6 +45,8 @@ def main(ext_li, platform=None):
   desc = read(f"version/{version}.md")
 
   tag = f"v{version}"
+  if COM.NAME:
+    tag += ("·"+COM.NAME)
 
   r = !(github-release release --user @(user) --repo @(repo) --tag @(tag) --name @(tag) --description @(desc))
   $RAISE_SUBPROC_ERROR = False

@@ -101,8 +101,7 @@ def linux():
 make = locals()[platform]
 
 def main():
-  from config import CONFIG
-  COM = CONFIG.COM
+  from config import COM
   if COM.NAME:
     fp = join(MAIN,"index.html")
     title = f"{NAME} · {COM.NAME}定制版"

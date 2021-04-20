@@ -78,8 +78,8 @@ def win():
   inno = "inno.iss"
   with open(join(DIR,inno)) as f:
     txt = Template(f.read()).render(**PACKAGE)
-    with open(join(DIR,"app",inno),"w") as o:
-      o.write(txt)
+    with open(join(DIR,"app",inno),"wb") as o:
+      o.write(txt.encode('utf8'))
 
   pdir = "C:\\Program Files (x86)\\Inno Setup 6\\"
   ChineseSimplified = pdir+'Languages\\ChineseSimplified.isl'

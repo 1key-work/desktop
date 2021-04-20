@@ -34,7 +34,7 @@ def main(ext_li, platform=None):
   with open(".git/config", encoding="utf8") as f:
     for line in f:
       line = line.strip()
-      if line.startsWith("url = "):
+      if line.startswith("url = "):
          repository = line.split("=",1).pop().lstrip()
          break
   _, user, repo = repository.rsplit("/",2)

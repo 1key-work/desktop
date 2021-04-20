@@ -67,6 +67,8 @@ def darwin():
   npx --yes appdmg @(fp) @(dmg)
 
 def win():
+  
+  build("ico")
 
   from mako.template import Template
   inno = "inno.iss"
@@ -74,8 +76,6 @@ def win():
     txt = Template(f.read()).render(**PACKAGE)
     with open(join(DIR,"app",inno),"w",encoding="utf-8") as o:
       o.write(txt)
-  
-  build("ico")
 
   Path(NAME+"-win32-x64").rename(NAME)
   pip3 install py7zr

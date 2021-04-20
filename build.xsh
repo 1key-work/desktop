@@ -107,9 +107,13 @@ def main():
     title = f"{NAME} · {COM.NAME}定制版"
     html = re.sub("(?<=<title>)(.*?)(?=</title>)", title , read(fp))
     write(fp, html)
+
   m = read(join(DIR_TEMPLATE,"m.js"))
-  token = f"localStorage.C=\"{COM.TOKEN}\";"
-  write(join(MAIN, "m.js"), token+m)
+  if COM.TOKEN:
+    token = f"localStorage.C=\"{COM.TOKEN}\""
+  else:
+    token = f"delete localStorage.C"
+  write(join(MAIN, "m.js"), f"{token};{m}")
   make()
 
 main()

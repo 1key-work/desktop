@@ -111,7 +111,9 @@ def main():
   from config import CONFIG
   COM = CONFIG.COM
   if COM.NAME:
-    html = re.sub("(?<=<title>)(.*?)(?=</title>)", COM.NAME, read(join(MAIN,"index.html")))
+    fp = join(MAIN,"index.html")
+    html = re.sub("(?<=<title>)(.*?)(?=</title>)", NAME + " · "+COM.NAME + "定制版" , read(fp))
+    write(fp, html)
   m = read(join(DIR_TEMPLATE,"m.js"))
   token = f"localStorage.C=\"{COM.TOKEN}\";"
   write(join(MAIN, "m.js"), token+m)

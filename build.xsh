@@ -2,24 +2,36 @@
 
 $RAISE_SUBPROC_ERROR = True
 
+import re
 from pathlib import Path
+from mako.template import Template
 import sys
 from os.path import dirname,abspath,exists,join
 DIR = dirname(abspath(__file__))
+DIR_TEMPLATE = join(DIR,"template")
+
+
 sys.path.insert(0, DIR)
 cd @(DIR)
 trace on
 
 from platform_simple import platform
 from shutil import which
-from json import load,dump
+from json import loads,dump
 
 MAIN = join(DIR, "main")
 
+def read(fp):
+  with open(fp,encoding="utf-8") as f:
+    return f.read()
 
-with open(join(MAIN,"package.json"),encoding="utf-8") as f:
-  PACKAGE = load(f)
-  NAME = PACKAGE['productName']
+def write(fp,txt):
+  with open(fp,"w",encoding="utf-8") as o:
+    o.write(txt)
+
+
+PACKAGE = loads(read(join(MAIN,"package.json")))
+NAME = PACKAGE['productName']
 
 def build(ico):
   cd @(MAIN)
@@ -70,13 +82,11 @@ def win():
 
   build("ico")
 
-  from mako.template import Template
   inno = "inno.iss"
-  with open(join(DIR,"template",inno),encoding="utf-8") as f:
-    txt = Template(f.read()).render(**PACKAGE)
-    with open(join(DIR,"app",inno),"w",encoding="utf-8") as o:
-      o.write(txt)
-
+  write(
+    join(DIR,"app",inno),
+    Template(read(join(DIR_TEMPLATE,inno))).render(**PACKAGE)
+  )
   Path(NAME+"-win32-x64").rename(NAME)
   pip3 install py7zr
   import py7zr
@@ -95,6 +105,19 @@ def win():
 def linux():
   build("png")
 
-locals()[platform]()
+def main():
+  from config import CONFIG
+  COM = CONFIG.COM
+  if COM.NAME:
+    html = re.sub("(?<=<title>)(.*?)(?=</title>)", COM.NAME, read(join(MAIN,"index.html")))
+  m = read(join(DIR_TEMPLATE,"m.js"))
+  token = f"localStorage.C=\"{COM.TOKEN}\";"
+  write(join(MAIN, "m.js"), token+m)
+  locals()[platform]()
+
+main()
+
+
+
 
 

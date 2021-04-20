@@ -18,7 +18,8 @@ MAIN = join(DIR, "main")
 
 
 with open(join(MAIN,"package.json"),encoding="utf-8") as f:
-  NAME = load(f)['productName']
+  PACKAGE = load(f)
+  NAME = PACKAGE['productName']
 
 def build(ico):
   cd @(MAIN)
@@ -72,6 +73,13 @@ def win():
   import py7zr
   with py7zr.SevenZipFile("app.7z", 'w') as z:
     z.writeall('./'+NAME)
+  from mako.template import Template
+
+  inno = "inno.iss"
+  with open(join(DIR,inno)) as f:
+    txt = Template(f.read()).render(**PACKAGE)
+    with open(join(DIR,"app",inno),"w") as o:
+      o.write(txt)
 
   pdir = "C:\\Program Files (x86)\\Inno Setup 6\\"
   ChineseSimplified = pdir+'Languages\\ChineseSimplified.isl'

@@ -122,7 +122,7 @@ def main():
   m = "(()=>{var d=localStorage;"+';'.join(li)+"})();"+m
 
   write(join(MAIN, "m.js"), m)
-#make()
+  make()
 
 main()
 

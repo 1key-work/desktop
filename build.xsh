@@ -74,7 +74,7 @@ def win():
     txt = Template(f.read()).render(**PACKAGE)
     with open(join(DIR,"app",inno),"w",encoding="utf-8") as o:
       o.write(txt)
-  return
+  
   build("ico")
 
   Path(NAME+"-win32-x64").rename(NAME)

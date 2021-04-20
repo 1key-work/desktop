@@ -7,20 +7,20 @@ from os.path import dirname,abspath,exists,join
 $DIR = DIR = dirname(abspath(__file__))
 sys.path.insert(0, DIR)
 cd @(DIR)
+from short import read,write
 trace on
 
 import traceback
 from shutil import which
-from json import load
+from json import loads
 
 def main(ext_li, platform=None):
   github_release = "github-release"
 
   if not which(github_release):
     go get github.com/github-release/@(github_release)
-  
-  with open("main/package.json",,encoding="utf-8") as f:
-    o = load(f)
+
+  o = loads(read("main/package.json"))
 
   email = o['email']
   productName = o['productName']
@@ -31,7 +31,7 @@ def main(ext_li, platform=None):
   version = o['version']
   print(version)
 
-  with open(".git/config") as f:
+  with open(".git/config", encoding="utf8") as f:
     for line in f:
       line = line.strip()
       if line.startsWith("url = "):
@@ -41,8 +41,7 @@ def main(ext_li, platform=None):
   repo = repo.rsplit(".")[0]
   print(user,repo)
 
-  with open(f"version/{version}.md", encoding="utf8") as f:
-    desc = f.read()
+  desc = read(f"version/{version}.md")
 
   tag = f"v{version}"
 

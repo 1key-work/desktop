@@ -10,9 +10,9 @@ from os.path import dirname,abspath,exists,join
 DIR = dirname(abspath(__file__))
 DIR_TEMPLATE = join(DIR,"template")
 
-
 sys.path.insert(0, DIR)
 cd @(DIR)
+from short import read,write
 trace on
 
 from platform_simple import platform
@@ -21,13 +21,6 @@ from json import loads,dump
 
 MAIN = join(DIR, "main")
 
-def read(fp):
-  with open(fp,encoding="utf-8") as f:
-    return f.read()
-
-def write(fp,txt):
-  with open(fp,"w",encoding="utf-8") as o:
-    o.write(txt)
 
 
 PACKAGE = loads(read(join(MAIN,"package.json")))
@@ -105,7 +98,7 @@ def win():
 def linux():
   build("png")
 
-make = locals()[platform] 
+make = locals()[platform]
 
 def main():
   from config import CONFIG

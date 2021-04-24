@@ -84,7 +84,7 @@ def win():
 
 
   for i in (
-    path.join(NAME, "LICENSE"),
+    join(NAME, "LICENSE"),
     path.join(NAME, "LICENSES.chromium.html")
   ):
     os.remove(i)

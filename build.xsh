@@ -7,6 +7,7 @@ from pathlib import Path
 from mako.template import Template
 import sys
 from os.path import dirname,abspath,exists,join
+import os
 DIR = dirname(abspath(__file__))
 DIR_TEMPLATE = join(DIR,"template")
 
@@ -21,8 +22,6 @@ from json import loads,dumps
 
 MAIN = join(DIR, "main")
 
-
-
 PACKAGE = loads(read(join(MAIN,"package.json")))
 NAME = PACKAGE['productName']
 
@@ -31,10 +30,11 @@ def build(ico):
   if not exists(join(MAIN, "node_modules")):
     yarn
   npm config set ELECTRON_MIRROR http://npm.taobao.org/mirrors/electron/
-  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app
-  # --asar
+  npx --yes electron-packager . --overwrite --icon=@(DIR)/app.@(ico) --prune=true --out=@(DIR)/app --asar
+
   # --extra-resource='index.html' --extra-resource='m.js' --extra-resource='s.js'
   cd @(DIR)/app
+
 
 def darwin():
   build("icns")
@@ -79,7 +79,16 @@ def win():
     join(DIR,"app",inno),
     Template(read(join(DIR_TEMPLATE,inno))).render(**PACKAGE)
   )
+
   Path(NAME+"-win32-x64").rename(NAME)
+
+
+  for i in (
+    path.join(NAME, "LICENSE"),
+    path.join(NAME, "LICENSES.chromium.html")
+  ):
+    os.remove(i)
+
   pip3 install py7zr
   import py7zr
   with py7zr.SevenZipFile("app.7z", 'w') as z:
@@ -116,7 +125,7 @@ def main():
   li = [token]
   if COM.E2W or 1:
     li = li + [
-      "var E2W=JSON.parse(d.E2W||'{}')"+f",COM={dumps(COM.E2W)}", 
+      "var E2W=JSON.parse(d.E2W||'{}')"+f",COM={dumps(COM.E2W)}",
       "for(var i in COM){if(!(i in E2W))E2W[i]=COM[i]}",
       "d.E2W =JSON.stringify(E2W)"
     ]

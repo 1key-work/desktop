@@ -114,12 +114,14 @@ def main():
     token = f"delete d.C"
 
   li = [token]
-  if COM.E2W:
-    li.append(
-      f"d.E2W||(d.E2W='{dumps(COM.E2W)}')"
-    )
+  if COM.E2W or 1:
+    li = li + [
+      "var E2W=JSON.parse(d.E2W||'{}')"+f",COM={dumps(COM.E2W)}", 
+      "for(var i in COM){if(!(i in E2W))E2W[i]=COM[i]}",
+      "d.E2W =JSON.stringify(E2W)"
+    ]
 
-  m = "(()=>{var d=localStorage;"+';'.join(li)+"})();"+m
+  m = "(()=>{var d=localStorage;"+'\n'.join(li)+"})();"+m
 
   write(join(MAIN, "m.js"), m)
   make()

@@ -117,13 +117,15 @@ def main():
     write(fp, html)
 
   m = read(join(DIR_TEMPLATE,"m.js"))
+
   if COM.TOKEN:
-    token = f"d.C=\"{COM.TOKEN}\""
+    token = f"localStorage.C=\"{COM.TOKEN}\""
   else:
-    token = f"delete d.C"
+    token = f"delete localStorage.C"
 
   li = [token]
-  m = "(()=>{var d=localStorage;"+'\n'.join(li)+"})();"+m
+  m = token+";"+m
+  #m = "(()=>{var d=localStorage;"+'\n'.join(li)+"})();"+m
 
   write(join(MAIN, "m.js"), m)
   make()
